@@ -4,7 +4,8 @@
   "description": "A coding challenge to assess your ability to navigate an express server implementation.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha --exit tests/*.spec.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,7 @@
     "eslint": "^5.8.0",
     "eslint-config-eslint": "^5.0.1",
     "eslint-plugin-node": "^8.0.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   }
 }

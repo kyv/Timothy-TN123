@@ -5,4 +5,6 @@ const index = require('./routes/index.js');
 
 app.get('/', index);
 
-app.listen(3000, () => console.log(`Open http://localhost:3000 to see a response.`));
+app.listen(3000, () => process.stdout.write('Open http://localhost:3000 to see a response.'));
+
+module.exports = app;
