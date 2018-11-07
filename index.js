@@ -15,7 +15,7 @@ app.use(passport.initialize());
 
 app.get('/', index);
 app.get('/book', jwt({ secret }), book);
-app.post('/signin',
+app.post('/users/signin',
   passport.authenticate('local',
     {
       // failureRedirect: '/signin',

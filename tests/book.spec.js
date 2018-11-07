@@ -51,7 +51,7 @@ describe('Book Model Tests', () => {
 
     before(done => {
       request(app)
-        .post('/signin')
+        .post('/users/signin')
         .send({ username: 'Jane', password: 12454 })
         .expect('Content-type', /json/)
         .expect(200)
