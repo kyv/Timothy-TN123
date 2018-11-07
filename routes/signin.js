@@ -2,9 +2,9 @@ const jwt = require('jwt-simple');
 const secret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
-  const { id, username, createdAt } = req.user;
+  const { id, username, createdAt, institutionDomain } = req.user;
   const payload = {
-    id, username, createdAt,
+    id, username, createdAt, institutionDomain,
   };
   const token = jwt.encode(payload, secret);
 

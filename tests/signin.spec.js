@@ -1,4 +1,5 @@
 process.env.NODE_ENV = 'test';
+process.env.JWT_SECRET = 'woM^Uf9IPagF';
 
 const chai = require('chai');
 const request = require('supertest');
@@ -15,7 +16,11 @@ describe('User Model Tests', () => {
         username: 'Jane',
         password: 12454,
         email: 'jane@node.org',
-      }).then(() => done());
+        role: 'student',
+      }).then(user => {
+        user.setInstitution('node.org');
+        done();
+      });
     });
   });
 

@@ -1,22 +1,23 @@
 const Sequelize = require('sequelize');
-const Institution = require('./institution');
 const db = require('../lib/db.js');
 
-const Book = db.define('book', {
-  title: {
+const Institution = db.define('institution', {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  author: {
+  url: {
     type: Sequelize.STRING,
+    validate: {
+      isUrl: true,
+    },
     allowNull: false,
   },
-  ISBN: {
+  domain: {
     type: Sequelize.STRING,
     allowNull: false,
+    primaryKey: true,
   },
 });
 
-Book.belongsTo(Institution);
-
-module.exports = Book;
+module.exports = Institution;

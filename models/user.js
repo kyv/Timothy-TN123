@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Institution = require('./institution');
 const db = require('../lib/db.js');
 
 const User = db.define('user', {
@@ -15,6 +16,17 @@ const User = db.define('user', {
       isEmail: true,
     },
   },
+  role: {
+    type: Sequelize.ENUM(
+      'student',
+      'academic',
+      'administrator'
+    ),
+    allowNull: false,
+
+  },
 });
+
+User.belongsTo(Institution);
 
 module.exports = User;

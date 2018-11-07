@@ -41,6 +41,7 @@ describe('Create User API Tests', () => {
         username: 'Will',
         email: 'will@node.org',
         password: 934344,
+        role: 'student',
       })
       .expect('Content-type', /json/)
       .expect(200)
