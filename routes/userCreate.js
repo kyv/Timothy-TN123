@@ -17,24 +17,16 @@ module.exports = (req, res) => {
 
       // associate with appropriate Institution
       result.setInstitution(tld[1]);
-      const {
-        email,
-        id,
-        role,
-        username,
-        updatedAt,
-        createdAt,
-      } = result;
 
       res.json({
         status: 'success',
         data: {
-          email,
-          id,
-          role,
-          username,
-          updatedAt,
-          createdAt,
+          email: result.email,
+          id: result.id,
+          role: result.role,
+          username: result.username,
+          updatedAt: result.updatedAt,
+          createdAt: result.createdAt,
         },
       });
     });
