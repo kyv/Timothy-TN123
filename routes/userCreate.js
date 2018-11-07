@@ -3,17 +3,18 @@ const nresolve = require('../lib/dns');
 
 module.exports = (req, res) => {
 
-  const data = Object.assign({}, {
+  const obj = Object.assign({}, {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
     role: req.body.role,
   });
 
-  const tld = data.email.split(/@/);
+
+  const tld = obj.email.split(/@/);
 
   nresolve(tld[1]).then(() => {
-    User.create(data).then(result => {
+    User.create(obj).then(result => {
 
       // associate with appropriate Institution
       result.setInstitution(tld[1]);
@@ -28,6 +29,15 @@ module.exports = (req, res) => {
           updatedAt: result.updatedAt,
           createdAt: result.createdAt,
         },
+      });
+    }).catch(err => {
+      // catch validation errors
+      const data = {};
+
+      data[err.errors[0].path] = err.message;
+      res.json({
+        status: 'fail',
+        data,
       });
     });
   }).catch(() => {

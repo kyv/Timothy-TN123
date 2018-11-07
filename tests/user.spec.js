@@ -43,6 +43,25 @@ describe('Create User API Tests', () => {
     User.drop().then(done());
   });
 
+  it('should not create user w/ invalid attributes', done => {
+
+    request(app)
+      .post('/users/create')
+      .send({
+        username: 'Sam',
+        email: 'sam@node.org',
+        password: 23413242314,
+      })
+      .end((err, res) => {
+        if (err) {
+          done(err);
+        }
+        expect(res.body.status).to.be.equal('fail');
+        done();
+      });
+  });
+
+
   it('should not create a user w/ fake domain', done => {
 
     request(app)
