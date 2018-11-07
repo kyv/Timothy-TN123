@@ -16,6 +16,7 @@ describe('Book Model Tests', () => {
   before(done => {
     const createUser = User.sync({ force: true }).then(() => User.create({
       username: 'Jane',
+      email: 'jane@node.org',
       password: 12454,
     }));
     const createBook = Book.sync({ force: true });

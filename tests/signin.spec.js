@@ -14,6 +14,7 @@ describe('User Model Tests', () => {
       User.create({
         username: 'Jane',
         password: 12454,
+        email: 'jane@node.org',
       }).then(() => done());
     });
   });
