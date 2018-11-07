@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const nresolve = require('../lib/dns');
 
-module.exports = (req, res, next) => {
+module.exports = (req, res) => {
 
   const data = Object.assign({}, {
     username: req.body.username,
@@ -39,7 +39,7 @@ module.exports = (req, res, next) => {
       });
     });
   }).catch(err => {
-    // catch the nresolve error
-    console.error(err);
+    // show the nresolve error
+    process.stder.write(err);
   });
 };

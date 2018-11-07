@@ -17,6 +17,7 @@ const User = db.define('user', {
     },
   },
   role: {
+    // eslint-disable-next-line new-cap
     type: Sequelize.ENUM(
       'student',
       'academic',

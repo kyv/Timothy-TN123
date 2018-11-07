@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha --exit tests/*.spec.js"
+    "test": "mocha --exit tests/*.spec.js",
+    "lint": "eslint *.js"
   },
   "author": "",
   "license": "ISC",

@@ -12,10 +12,12 @@
   "globals": {
     "describe": true,
     "it": true,
+    "after": true,
     "before": true,
     "beforeEach": true
   },
   rules: {
+    "node/no-unpublished-require": "false",
     "require-jsdoc": 'off',
     "lines-around-comment": off,
     "indent": ["error", 2],
