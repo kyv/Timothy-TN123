@@ -35,15 +35,16 @@ describe('Book Model Tests', () => {
 
   describe('Book API Tests', () => {
 
-    it('should have a body', done => {
+    it('should retrieve books from API', done => {
       request(app)
         .get('/book')
         .end((err, res) => {
           if (err) {
             done(err);
           }
-          expect(res.body.status).to.be.equal('success');
           expect(res.statusCode).to.be.equal(200);
+          expect(res.body.status).to.be.equal('success');
+          expect(res.body.data[0].title).to.be.equal('Parray Hotter');
           done();
         });
     });

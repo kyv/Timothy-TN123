@@ -1,8 +1,10 @@
+const Book = require('../models/book');
+
 module.exports = (req, res, next) => {
-  res.json({
-    status: 'success',
-    data: {
-      book: { id: 1, title: 'A blog post', body: 'Some useful content' },
-    },
+  Book.findAll().then(books => {
+    res.json({
+      status: 'success',
+      data: books,
+    });
   });
 };
