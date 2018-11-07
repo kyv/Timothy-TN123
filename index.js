@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('express-jwt');
 const app = express();
 
 const index = require('./routes/index.js');
@@ -7,11 +8,13 @@ const book = require('./routes/book.js');
 const signin = require('./routes/signin.js');
 const passport = require('./lib/auth');
 
+const secret = process.env.JWT_SECRET;
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(passport.initialize());
 
 app.get('/', index);
-app.get('/book', book);
+app.get('/book', jwt({ secret }), book);
 app.post('/signin',
   passport.authenticate('local',
     {
