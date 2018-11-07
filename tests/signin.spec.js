@@ -5,29 +5,36 @@ const chai = require('chai');
 const request = require('supertest');
 const app = require('../index');
 const User = require('../models/user');
+const Institution = require('../models/institution');
 
 const expect = chai.expect;
 
 describe('User Model Tests', () => {
 
   before(done => {
-    User.sync({ force: true }).then(() => {
-      User.create({
-        username: 'Jane',
-        password: 12454,
-        email: 'jane@node.org',
-        role: 'student',
-      }).then(user => {
-        user.setInstitution('node.org');
-        done();
-      });
-    });
+    const createInstitutionA = Institution.sync({ force: true }).then(() => Institution.create({
+      name: 'Node Group',
+      url: 'https://node.org',
+      domain: 'node.org',
+    }));
+    const createUser = User.sync({ force: true }).then(() => User.create({
+      username: 'Jane',
+      email: 'jane@node.org',
+      password: 12454,
+      role: 'student',
+    }).then(user => {
+      user.setInstitution('node.org');
+    }));
+
+    Promise.all([
+      createInstitutionA,
+      createUser,
+    ]).then(() => done());
+
   });
 
   after(done => {
-    User.destroy({
-      where: {},
-    }).then(done());
+    User.drop().then(done());
   });
 
   it('should find a user', done => {
@@ -39,7 +46,21 @@ describe('User Model Tests', () => {
 
   describe('Signin API Tests', () => {
 
-    it('should have a body', done => {
+    it('should not authenticate wrong password', done => {
+      request(app)
+        .post('/users/signin')
+        .send({ username: 'Jane', password: 12254 })
+        .expect(401)
+        .end(err => {
+          if (err) {
+            done(err);
+          }
+          done();
+        });
+    });
+
+
+    it('should authenticate correct password', done => {
       request(app)
         .post('/users/signin')
         .send({ username: 'Jane', password: 12454 })
