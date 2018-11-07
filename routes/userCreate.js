@@ -30,8 +30,13 @@ module.exports = (req, res) => {
         },
       });
     });
-  }).catch(err => {
-    // show the nresolve error
-    process.stder.write(err);
+  }).catch(() => {
+    // send an error if nresolve fails
+    res.json({
+      status: 'fail',
+      data: {
+        title: 'An email with a valid domain is required',
+      },
+    });
   });
 };

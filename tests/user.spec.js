@@ -11,6 +11,16 @@ const expect = chai.expect;
 
 describe('User Unit Tests', () => {
 
+  it('should not resolve fakedomain', done => {
+    const tld = 'zzz.zzz';
+
+    nresolve(tld).catch(err => {
+      expect(err.code).to.be.equal('ENOTFOUND');
+      done();
+    });
+
+  });
+
   it('should resolve domain', done => {
     const tld = 'node.org';
 
@@ -33,7 +43,26 @@ describe('Create User API Tests', () => {
     User.drop().then(done());
   });
 
-  it('should create a  user', done => {
+  it('should not create a user w/ fake domain', done => {
+
+    request(app)
+      .post('/users/create')
+      .send({
+        username: 'Sam',
+        email: 'zzz@zzz.zzz',
+        password: 23413242314,
+        role: 'student',
+      })
+      .end((err, res) => {
+        if (err) {
+          done(err);
+        }
+        expect(res.body.status).to.be.equal('fail');
+        done();
+      });
+  });
+
+  it('should create a user', done => {
 
     request(app)
       .post('/users/create')
