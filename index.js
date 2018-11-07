@@ -26,6 +26,6 @@ app.post('/users/signin',
 app.post('/users/create', createUser);
 
 
-app.listen(3000, () => process.stdout.write('Open http://localhost:3000 to see a response.'));
+app.listen(3000, () => process.stdout.write('Open http://localhost:3000 to see a response.\n'));
 
 module.exports = app;
