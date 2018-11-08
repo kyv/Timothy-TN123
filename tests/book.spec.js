@@ -45,17 +45,16 @@ describe('Book Model Tests', () => {
   });
 
   after(done => {
-    const destroyBook = Book.destroy({
-      where: {},
-    });
-    const destroyUser = User.destroy({
-      where: {},
-    });
-
-    Promise.all([destroyUser, destroyBook]).then(() => done());
+    Promise.all([
+      Book.drop(),
+      User.drop(),
+      Institution.drop(),
+    ]).then(() => done());
   });
 
   it('should insert a book', done => {
+    // test that the schema conforms to expectations
+    // might be overkill if we had a createBook endpoint
     const createA = Book.create({
       title: 'Parray Hopeer',
       author: 'Chance Leguem',
