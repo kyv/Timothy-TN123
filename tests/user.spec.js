@@ -5,6 +5,7 @@ const chai = require('chai');
 const request = require('supertest');
 const app = require('../index');
 const User = require('../models/user');
+const Institution = require('../models/institution');
 const nresolve = require('../lib/dns');
 
 const expect = chai.expect;
@@ -36,11 +37,24 @@ describe('User Unit Tests', () => {
 describe('Create User API Tests', () => {
 
   before(done => {
-    User.sync().then(done());
+    const createInstitutionA = Institution.sync({ force: true }).then(() => Institution.create({
+      name: 'Node Group',
+      url: 'https://node.org',
+      domain: 'node.org',
+    }));
+
+    Promise.all([
+      createInstitutionA,
+      User.sync(),
+    ]).then(() => done());
   });
 
   after(done => {
-    User.drop().then(done());
+    Promise.all([
+      User.drop(),
+      Institution.drop(),
+    ]).then(() => done());
+
   });
 
   it('should not create user w/ invalid attributes', done => {
