@@ -34,14 +34,11 @@ describe('User Model Tests', () => {
   });
 
   after(done => {
-    User.drop().then(done());
-  });
+    Promise.all([
+      User.drop(),
+      Institution.drop(),
+    ]).then(() => done());
 
-  it('should find a user', done => {
-    User.findAll().then(users => {
-      expect(users[0].username).to.be.equal('Jane');
-      done();
-    });
   });
 
   describe('Signin API Tests', () => {
